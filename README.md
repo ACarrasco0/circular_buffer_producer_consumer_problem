@@ -6,109 +6,68 @@
 - `make`
 - POSIX threads (`pthread`)
 
-## Description
-
-This project implements a producer–consumer system in C using:
-- a circular buffer
-- pthreads
-- mutexes and condition variables
-
-Multiple producer threads generate data continuously and push it into a shared buffer. A single consumer thread processes the data.
-
----
-
-## Objective
-
-- Simulate a real-time data pipeline
-- Measure latency, throughput, and data loss
-- Compare two consumer strategies:
-  - direct consumption
-  - batch consumption (half-buffer mode)
-
----
-
-## How it works
-
-### Producer
-- Generates data periodically
-- Pushes data into the circular buffer
-- Multiple producers can run simultaneously
-
-### Consumer
-- Only one consumer thread
-- Waits for data using a condition variable
-- Processes data from the buffer
-
----
-
-## Consumer modes
-
-### Direct mode (`mode = 1`)
-
-The consumer processes all available data immediately as soon as it wakes up.
-
-![Direct mode](docs/consumer_direct.png)
-
----
-
-### Half mode (`mode = 0`)
-
-The consumer waits until the buffer reaches at least half capacity before processing in batches.
-
-![Half mode](docs/consumer_half.png)
-
----
-
-### How to run the code
-
-The application is interactive and asks for configuration parameters at runtime:
-
-Example:
-
-![Half mode](docs/main_asking.png)
-
----
-
-### Compilation
-
-To build the project:
-
-```sh
-make
-```
-
-This compiles the source code and generates the executable:
-
-```sh
-./app
-```
-
----
-
-### Run
-
-To run the program:
+## Quick Start
 
 ```sh
 make run
 ```
 
-You will be prompted to enter:
+The program is interactive and will ask for:
 
 - Buffer size
 - Number of producers
-- Producer delay (per producer)
-- Consumer mode (0 = half, 1 = direct)
+- Producer delay
+- Consumer mode (`0` = half, `1` = direct)
 
-To Stop the program use:
+## Description
+
+This project implements a producer–consumer system in C with a circular buffer, pthreads, mutexes, and condition variables.
+
+## Objective
+
+- Simulate a real-time data pipeline
+- Measure latency, throughput, and data loss
+- Compare direct and batch consumer modes
+
+## How it works
+
+- Producers generate data and push it into the shared buffer.
+- One consumer waits for available data and processes it.
+- Mutexes and condition variables coordinate access.
+
+## Consumer Modes
+
+### Direct mode (`mode = 1`)
+
+The consumer processes all available data as soon as it wakes up.
+
+![Direct mode](docs/consumer_direct.png)
+
+### Half mode (`mode = 0`)
+
+The consumer waits until the buffer reaches at least half capacity before processing.
+
+![Half mode](docs/consumer_half.png)
+
+### Runtime prompt
+
+The program asks for the runtime configuration when it starts.
+
+![Half mode](docs/main_asking.png)
 
 ```sh
-Ctrl + C
+make
 ```
 
----
+Builds the executable `app`.
 
-### Tests
+```sh
+./app
+```
+
+Stop with `Ctrl + C`.
+
+## Tests
 
 To run unit tests:
 
@@ -116,15 +75,13 @@ To run unit tests:
 make test
 ```
 
-This builds and executes the test runner:
+Builds and runs `test_runner`.
 
 ```sh
 ./test_runner
 ```
 
----
-
-### Clean
+## Clean
 
 To remove compiled files and binaries:
 
@@ -132,14 +89,9 @@ To remove compiled files and binaries:
 make clean
 ```
 
-This deletes:
-- object files
-- executable (app)
-- test binary (test_runner)
+Deletes build files and the binaries `app` and `test_runner`.
 
----
-
-### Project Structure
+## Project Structure
 
 ```text
 app
@@ -170,22 +122,9 @@ tests/
     system_mock.h
 ```
 
----
+## Conclusions
 
-### Architecture
-
-- multiple producer threads
-- single consumer thread
-- shared circular buffer
-- mutex-protected access
-- Data processing statistics, minimum overhead
-- condition variable for synchronization
-
----
-
-### Conclusions
-
-- The system runs without data loss
-- Throughput is stable in both consumer modes
-- Half-buffer mode does not significantly improve performance in this setup
-- Latency variation is mainly caused by OS scheduling and synchronization overhead, not by buffer logic
+- The system runs without data loss.
+- Throughput is stable in both consumer modes.
+- Half mode does not significantly improve performance here.
+- Most latency variation comes from scheduling and synchronization overhead.
