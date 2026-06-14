@@ -41,7 +41,7 @@ Multiple producer threads generate data continuously and push it into a shared b
 
 The consumer processes all available data immediately as soon as it wakes up.
 
-![Direct mode](docs/consumer_direct/direct.png)
+![Direct mode](docs/consumer_direct.png)
 
 ---
 
@@ -49,7 +49,7 @@ The consumer processes all available data immediately as soon as it wakes up.
 
 The consumer waits until the buffer reaches at least half capacity before processing in batches.
 
-![Half mode](docs/consumer/half/half.png)
+![Half mode](docs/consumer_half.png)
 
 ---
 
