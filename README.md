@@ -53,16 +53,68 @@ The consumer waits until the buffer reaches at least half capacity before proces
 
 ---
 
-### Configuration
+### How to run the code
 
-Buffer size:
-producer_consumer_init(1024);
+The application is interactive and asks for configuration parameters at runtime:
 
-Producer speed (delay in microseconds):
-generate_producer_thread(&thread, 100);
+Example:
+![Half mode](docs/main_asking.png)
 
-Consumer mode:
-generate_consumer_thread(&thread, mode);
+---
+
+### Compilation
+
+To build the project:
+
+make
+
+This compiles the source code and generates the executable:
+
+./app
+
+---
+
+### Run
+
+To run the program:
+
+make run
+
+You will be prompted to enter:
+
+- Buffer size
+- Number of producers
+- Producer delay (per producer)
+- Consumer mode (0 = half, 1 = direct)
+
+To Stop the program use:
+
+Ctrl + C
+
+---
+
+### Tests
+
+To run unit tests:
+
+make test
+
+This builds and executes the test runner:
+
+./test_runner
+
+---
+
+### Clean
+
+To remove compiled files and binaries:
+
+make clean
+
+This deletes:
+- object files
+- executable (app)
+- test binary (test_runner)
 
 ---
 
