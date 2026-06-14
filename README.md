@@ -1,5 +1,11 @@
 # Circular Buffer Producer–Consumer
 
+## Requirements
+
+- GCC or another C compiler compatible with the Makefile
+- `make`
+- POSIX threads (`pthread`)
+
 ## Description
 
 This project implements a producer–consumer system in C using:
@@ -58,6 +64,7 @@ The consumer waits until the buffer reaches at least half capacity before proces
 The application is interactive and asks for configuration parameters at runtime:
 
 Example:
+
 ![Half mode](docs/main_asking.png)
 
 ---
@@ -66,11 +73,15 @@ Example:
 
 To build the project:
 
+```sh
 make
+```
 
 This compiles the source code and generates the executable:
 
+```sh
 ./app
+```
 
 ---
 
@@ -78,7 +89,9 @@ This compiles the source code and generates the executable:
 
 To run the program:
 
+```sh
 make run
+```
 
 You will be prompted to enter:
 
@@ -89,7 +102,9 @@ You will be prompted to enter:
 
 To Stop the program use:
 
+```sh
 Ctrl + C
+```
 
 ---
 
@@ -97,11 +112,15 @@ Ctrl + C
 
 To run unit tests:
 
+```sh
 make test
+```
 
 This builds and executes the test runner:
 
+```sh
 ./test_runner
+```
 
 ---
 
@@ -109,12 +128,47 @@ This builds and executes the test runner:
 
 To remove compiled files and binaries:
 
+```sh
 make clean
+```
 
 This deletes:
 - object files
 - executable (app)
 - test binary (test_runner)
+
+---
+
+### Project Structure
+
+```text
+app
+main.c
+Makefile
+test_runner
+TODO
+inc/
+  circular_buffer.h
+  mutex.h
+  p_c_ctx.h
+  producer_consumer.h
+  stats.h
+  system.h
+src/
+  circular_buffer.c
+  mutex.c
+  producer_consumer.c
+  stats.c
+  system.c
+tests/
+  circular_buffer_test.c
+  stats_test.c
+  mocks/
+    mutex_mock.c
+    mutex_mock.h
+    system_mock.c
+    system_mock.h
+```
 
 ---
 
